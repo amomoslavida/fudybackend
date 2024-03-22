@@ -2,7 +2,7 @@
   import { UsersService } from './users.service'; // Ensure the path is correct
   import { CreateUserDto } from './dto/CreateUserDto'; // Define this DTO for validation
 
-  @Controller('users')
+  @Controller('user')
   export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 

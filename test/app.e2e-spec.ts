@@ -1,4 +1,5 @@
 // app.e2e-spec.ts
+require('dotenv').config({ path: '/.env' });
 
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, HttpStatus } from '@nestjs/common';
@@ -18,7 +19,7 @@ describe('Authentication and User Management E2E Tests', () => {
     await app.init();
   });
 
-  it('/POST users - Create user', () => {
+  it('/POST user - Create user', () => {
     return request(app.getHttpServer())
       .post('/user') // Make sure this matches your endpoint for creating a user
       .send({
