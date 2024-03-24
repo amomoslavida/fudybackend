@@ -1,6 +1,6 @@
 import { Controller, Post,Get,UseGuards,Request, Body, HttpCode, HttpStatus } from '@nestjs/common';
-import { AuthService } from './auth.service'; // Ensure the path is correct
-import { JwtAuthGuard } from './guards/jwt-auth.guard'; // Adjust path as needed
+import { AuthService } from './auth.service'; 
+import { JwtAuthGuard } from './guards/jwt-auth.guard'; 
 
 @Controller('auth')
 export class AuthController {
@@ -8,7 +8,7 @@ export class AuthController {
 
 
   @Post('login')
-  @HttpCode(HttpStatus.OK) // Optional: Sets the HTTP status code to 200 for successful requests
+  @HttpCode(HttpStatus.OK) 
   async login(@Body() body: { email: string; password: string }) {
     return this.authService.login(body.email, body.password);
   }

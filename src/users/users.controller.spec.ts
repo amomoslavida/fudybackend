@@ -1,18 +1,41 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { UsersController } from './users.controller';
+import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/CreateUserDto';
 
 describe('UsersController', () => {
-  let controller: UsersController;
+  let usersController: UsersController;
+  let usersService: Partial<UsersService>;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    // Mock UsersService
+    usersService = {
+      createUser: jest.fn().mockImplementation((email: string, password: string) => ({
+        id: Date.now(), // Simulate generating an ID
+        email,
+        password, // In a real scenario, the password would be hashed
+      })),
+    };
+
+    const moduleRef = await Test.createTestingModule({
       controllers: [UsersController],
+      providers: [{ provide: UsersService, useValue: usersService }],
     }).compile();
 
-    controller = module.get<UsersController>(UsersController);
+    usersController = moduleRef.get<UsersController>(UsersController);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  describe('create', () => {
+    it('should create a new user and return the user data', async () => {
+      const createUserDto: CreateUserDto = { email: 'test@example.com', password: 'password123' };
+      const result = await usersController.create(createUserDto);
+
+      expect(result).toEqual({
+        id: expect.any(Number),
+        email: 'test@example.com',
+        password: 'password123', // Note: In real scenarios, you wouldn't return the password
+      });
+      expect(usersService.createUser).toHaveBeenCalledWith(createUserDto.email, createUserDto.password);
+    });
   });
 });

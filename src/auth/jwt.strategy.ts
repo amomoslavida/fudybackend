@@ -14,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    // Optionally, add more validation logic here
+    // This is the main place to add more validation.For example,Role or Permissions Validation, User Existence Check etc...
     return await this.usersService.findUserByEmail(payload.email);
   }
 }
