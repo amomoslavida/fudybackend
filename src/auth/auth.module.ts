@@ -12,11 +12,11 @@ import { UsersModule } from '../users/users.module';
     UsersModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: process.env.JWT_SECRET, // Use an environment variable for the  secret
-      signOptions: { expiresIn: '5m' }, // Set token expiration to 5 minutes
+      secret: process.env.JWT_SECRET, 
+      signOptions: { expiresIn: '5m' }, 
     }),
   ],
-  providers: [AuthService, JwtStrategy], // Include JwtStrategy in your providers
+  providers: [AuthService, JwtStrategy], 
   controllers: [AuthController],
 })
 export class AuthModule {}

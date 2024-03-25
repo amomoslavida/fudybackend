@@ -13,7 +13,7 @@ describe('UsersController', () => {
       createUser: jest.fn().mockImplementation((email: string, password: string) => ({
         id: Date.now(), // Simulate generating an ID
         email,
-        password, // In a real scenario, the password would be hashed
+        password, 
       })),
     };
 
@@ -33,7 +33,7 @@ describe('UsersController', () => {
       expect(result).toEqual({
         id: expect.any(Number),
         email: 'test@example.com',
-        password: 'password123', // Note: In real scenarios, you wouldn't return the password
+        password: 'password123', 
       });
       expect(usersService.createUser).toHaveBeenCalledWith(createUserDto.email, createUserDto.password);
     });

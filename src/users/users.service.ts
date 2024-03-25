@@ -13,13 +13,13 @@ export class UsersService {
 
   async createUser(email: string, password: string): Promise<User> {
     try {
-      const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt round
+      const hashedPassword = await bcrypt.hash(password, 10); 
       const newUser = this.usersRepository.create({ email, password: hashedPassword });
 
       await this.usersRepository.save(newUser);
       return newUser;
     } catch (error) {
-      if (error.code === '23505') { // Unique violation error code for PostgreSQL
+      if (error.code === '23505') { 
         throw new ConflictException('A user with this email already exists');
       } else {
         throw new InternalServerErrorException('Failed to create user');
